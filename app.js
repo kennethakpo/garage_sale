@@ -3,7 +3,16 @@ var app = express();
 
 
 app.get("/", (req, res) => {
-    
+    ({
+        name: "Kenneth",
+        age: "too old",
+        height: "Tall"
+    },
+    {
+        name: "Chiamaka",
+        age: "too old too",
+        height: "Short"
+    })
 });
 
 
