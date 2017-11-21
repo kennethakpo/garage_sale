@@ -10,5 +10,10 @@ module.exports = {
 
   mongoURI: process.env.MONGO_URI,
 
-  sessionSecret: process.env.SESSION_SECRET
+  sessionSecret: process.env.SESSION_SECRET,
+
+  AWSAccessKeyId: process.env.AWSAccessKeyId,
+  AWSSecretKey: process.env.AWSSecretKey,
+
+  garageSaleStoragePath: process.env.garageSaleStoragePath
 };
