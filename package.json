@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is the web version of the garage sale app",
   "main": "app.js",
+  "engines": { "node": ">=8.9", "npm": ">=5.5" },
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
