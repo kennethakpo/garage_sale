@@ -18,10 +18,19 @@ export default class DashboardCard extends Component {
                       }
                       alt="Dashboard Item"
                     />
-                    <span className="card-title">{garageSale.location} </span>
+                    <span className="card-title">
+                      {garageSale.distance !== undefined
+                        ? Math.round(garageSale.distance * 100) / 100 +
+                          " Miles Away"
+                        : garageSale.location}{" "}
+                    </span>
                   </div>
                   <div className="card-content">
-                    <p>{garageSale.description}</p>
+                    <p>
+                      {garageSale.description.length >= 200
+                        ? garageSale.description.substring(0, 200) + " ..."
+                        : garageSale.description}
+                    </p>
                   </div>
                   <div className="card-action">
                     <a

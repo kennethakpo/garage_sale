@@ -11,7 +11,9 @@ router.get(
   })
 );
 
-router.get("/google/callback", passport.authenticate("google"));
+router.get("/google/callback", passport.authenticate("google"), (req, res) => {
+  res.redirect("/garagesales");
+});
 
 //twitter authentication routes
 router.get(
@@ -21,11 +23,23 @@ router.get(
   })
 );
 
-router.get("/twitter/callback", passport.authenticate("twitter"));
+router.get(
+  "/twitter/callback",
+  passport.authenticate("twitter"),
+  (req, res) => {
+    res.redirect("/garagesales");
+  }
+);
 
 //facebook authentication routes
 router.get("/facebook", passport.authenticate("facebook"));
 
-router.get("/facebook/callback", passport.authenticate("facebook"));
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook"),
+  (req, res) => {
+    res.redirect("/garagesales");
+  }
+);
 
 module.exports = router;

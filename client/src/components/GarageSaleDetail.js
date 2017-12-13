@@ -9,9 +9,7 @@ export default class GarageSaleDetail extends Component {
 
   async componentDidMount() {
     const garageSaleId = this.props.match.params.id;
-    const result = await fetch(
-      "http://localhost:5000/api/garagesales/" + garageSaleId
-    );
+    const result = await fetch("/api/garagesales/" + garageSaleId);
     const garageSale = await result.json();
 
     this.setState({ garageSale: garageSale });
@@ -22,17 +20,23 @@ export default class GarageSaleDetail extends Component {
 
     return (
       <div className="container">
-        <div className="row">
-          <div className="col l12">
-            <div className="card-panel garageSaleCarousel">
-              {<GarageSaleCarousel garageSale={garageSale} />}
-            </div>
+        <div className="row section">
+          <div className="col s12">
+            <h3 className="cyan-text text-darken-3">{garageSale.location}</h3>
+            <h5 className="cyan-text text-darken-3">
+              Opened {garageSale.startDate} Closes {garageSale.endDate}
+            </h5>
+          </div>
+          <div className="col s12 garageSaleCarousel center-align">
+            {<GarageSaleCarousel garageSale={garageSale} />}
           </div>
         </div>
         <div className="grey lighten-2">
-          {this.state.garageSale.location} <br />
-          {this.state.garageSale.startDate} <br />
-          {this.state.garageSale.endDate} <br />
+          {garageSale.location} <br />
+          {garageSale.coords} <br />
+          {garageSale.coords} <br />
+          {garageSale.startDate} <br />
+          {garageSale.endDate} <br />
         </div>
       </div>
     );

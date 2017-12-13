@@ -1,33 +1,16 @@
 import React, { Component } from "react";
-import $ from "jquery";
+import { Carousel } from "react-responsive-carousel";
 
 export default class GarageSaleCarousel extends Component {
-  componentDidMount() {
-    $(document).ready(function() {
-      $(".carousel").carousel();
-    });
-    $(".carousel.carousel-slider").carousel({
-      fullWidth: true,
-      indicators: true
-    });
-  }
-
   render() {
     const garageSaleImages = this.props.garageSale.images;
 
-    if (
-      typeof garageSaleImages !== "undefined" &&
-      garageSaleImages.length > 0
-    ) {
+    if (garageSaleImages !== undefined && garageSaleImages.length > 0) {
       return (
-        <div className="carousel carousel-slider">
+        <Carousel useKeyboardArrows={true} autoPlay={true}>
           {garageSaleImages.map(image => {
             return (
-              <a
-                className="carousel-item"
-                href=""
-                key={this.props.garageSale._id}
-              >
+              <div key={this.props.garageSale._id}>
                 <img
                   src={
                     "https://s3.us-east-2.amazonaws.com/akpo-garagesale/" +
@@ -35,10 +18,10 @@ export default class GarageSaleCarousel extends Component {
                   }
                   alt="garage Sale"
                 />
-              </a>
+              </div>
             );
           })}
-        </div>
+        </Carousel>
       );
     } else {
       return <div>No Images Provided</div>;

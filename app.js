@@ -2,6 +2,8 @@ const express = require("express"),
   mongoose = require("mongoose"),
   passport = require("passport"),
   bodyParser = require("body-parser"),
+  session = require("express-session"),
+  mongoStore = require("connect-mongo")(session),
   keys = require("./config/keys");
 
 //requiring models
@@ -16,7 +18,7 @@ require("./services/passport");
 const authRoutes = require("./routes/authRoutes");
 const garageSaleRoutes = require("./routes/garageSaleRoutes");
 
-//connecting to the mongoode database
+//connecting to the mongo database
 mongoose.connect(keys.mongoURI, {
   useMongoClient: true
 });
@@ -36,10 +38,11 @@ app.use(bodyParser.json());
 
 //setting up app to use express session
 app.use(
-  require("express-session")({
+  session({
     secret: keys.sessionSecret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new mongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 
@@ -50,15 +53,28 @@ app.use(passport.session());
 app.use("/auth", authRoutes);
 
 app.get("/api/current_user", (req, res) => {
-  res.send(req.user);
+  var user = req.user;
+  res.send({ user });
 });
 
 app.get("/api/logout", (req, res) => {
   req.logout();
-  res.send(req.user);
+  res.redirect("/garagesales");
 });
 
 app.use(garageSaleRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  //Express will serve up production assets
+  //The order matters, make sure app.get(*) is the last route
+  app.use(express.static("client/build"));
+
+  //Express will serve up index.html if it doesn't recognize a route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //starting the node server
 const PORT = process.env.PORT || 5000;

@@ -1,21 +1,28 @@
 import React, { Component } from "react";
+import HeaderLinks from "./HeaderLinks";
+import $ from "jquery";
 
-class Header extends Component {
+export default class Header extends Component {
+  componentDidMount() {
+    $(".button-collapse").sideNav();
+  }
+
   render() {
     return (
-      <div>
+      <div className="navbar-fixed">
         <nav className="cyan darken-3">
           <div className="nav-wrapper container">
-            <a href="/" className="brand-logo">
+            <a href="/garagesales" className="brand-logo">
               Sellr
             </a>
+            <a href="" data-activates="mobile-demo" className="button-collapse">
+              <i className="material-icons">menu</i>
+            </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li>
-                <a href="/garagesales">Garage Sale</a>
-              </li>
-              <li>
-                <a href="/login">Login</a>
-              </li>
+              <HeaderLinks currentUser={this.props.currentUser} />
+            </ul>
+            <ul className="right side-nav" id="mobile-demo">
+              <HeaderLinks currentUser={this.props.currentUser} />
             </ul>
           </div>
         </nav>
@@ -23,5 +30,3 @@ class Header extends Component {
     );
   }
 }
-
-export default Header;

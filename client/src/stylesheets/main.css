@@ -9,3 +9,39 @@
 .garageSaleCarousel {
   padding: 0px;
 }
+
+.loginButtonSection {
+  width: 370px;
+  margin: 10px auto;
+}
+
+.loginButton {
+  margin: 10px 0px;
+}
+
+.google {
+  background-color: #4285f4;
+  width: 100%;
+}
+
+.google:hover {
+  background-color: #5297ff;
+}
+
+.facebook {
+  background-color: #3b5998;
+  width: 100%;
+}
+
+.facebook:hover {
+  background-color: #4e69a2;
+}
+
+.twitter {
+  background-color: #00aced;
+  width: 100%;
+}
+
+.twitter:hover {
+  background-color: #1dcaff;
+}

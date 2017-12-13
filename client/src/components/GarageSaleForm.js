@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import $ from "jquery";
 
 export default class GarageSaleForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { files: [] };
+  }
+
   componentDidMount() {
     $(".datepicker").pickadate({
       selectMonths: true, // Creates a dropdown to control month
@@ -9,7 +14,7 @@ export default class GarageSaleForm extends Component {
       today: "Today",
       clear: "Clear",
       close: "Ok",
-      closeOnSelect: false // Close upon selecting a date,
+      closeOnSelect: true // Close upon selecting a date,
     });
   }
 
@@ -27,12 +32,27 @@ export default class GarageSaleForm extends Component {
     const fetchInit = {
       method: "POST",
       mode: "cors",
-      body: garageSaleFormData
+      body: garageSaleFormData,
+      credentials: "same-origin"
     };
 
-    fetch("http://localhost:5000/api/garagesales", fetchInit).then(response => {
+    fetch("/api/garagesales", fetchInit).then(response => {
       console.log(response);
     });
+  };
+
+  onChange = e => {
+    var files = document.getElementById("imagesToUpload").files;
+    const reader = new FileReader();
+    var stateFiles = [];
+    for (var i = 0; i < files.length; i++) {
+      reader.onload = e => {
+        stateFiles.push(e.target.result);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+    this.setState({ files: stateFiles });
+    console.log(this.state.files);
   };
 
   render() {
@@ -61,9 +81,7 @@ export default class GarageSaleForm extends Component {
               <div className="file-field input-field col s12">
                 <div className="btn cyan darken-3">
                   <span>
-                    <i className="small material-icons left">
-                      add_a_photo
-                    </i>{" "}
+                    <i className="small material-icons left">add_a_photo</i>{" "}
                     Upload Pictures
                   </span>
                   <input
@@ -73,6 +91,7 @@ export default class GarageSaleForm extends Component {
                     name="garageSalePhotos"
                     multiple
                     accept="image/png,image/jpeg"
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="file-path-wrapper">
@@ -83,6 +102,7 @@ export default class GarageSaleForm extends Component {
                   />
                 </div>
               </div>
+
               <div className="input-field col s12">
                 <label htmlFor="description">Brief description</label>
                 <input className="" type="text" name="description" />
