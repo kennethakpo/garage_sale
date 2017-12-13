@@ -44,33 +44,33 @@ passport.use(
 );
 
 //twitter strategy service setup
-passport.use(
-  new twitterStrategy(
-    {
-      consumerKey: keys.twitterconsumerKey,
-      consumerSecret: keys.twitterconsumerSecret,
-      callbackURL: "/auth/twitter/callback"
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken);
-      console.log(refreshToken);
-      console.log(profile);
-    }
-  )
-);
+// passport.use(
+//   new twitterStrategy(
+//     {
+//       consumerKey: keys.twitterconsumerKey,
+//       consumerSecret: keys.twitterconsumerSecret,
+//       callbackURL: "/auth/twitter/callback"
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       console.log(accessToken);
+//       console.log(refreshToken);
+//       console.log(profile);
+//     }
+//   )
+// );
 
 //facebook strategy service setup
-passport.use(
-  new facebookStrategy(
-    {
-      clientID: keys.facebookClientID,
-      clientSecret: keys.facebookClientSecret,
-      callbackURL: "/auth/facebook/callback"
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken);
-      console.log(refreshToken);
-      console.log(profile);
-    }
-  )
-);
+// passport.use(
+//   new facebookStrategy(
+//     {
+//       clientID: keys.facebookClientID,
+//       clientSecret: keys.facebookClientSecret,
+//       callbackURL: "/auth/facebook/callback"
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       console.log(accessToken);
+//       console.log(refreshToken);
+//       console.log(profile);
+//     }
+//   )
+// );
